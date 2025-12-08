@@ -1,0 +1,3 @@
+[submodule "lib/postgresq1"]
+	path = lib/postgresq1
+	url = https://github.com/postgres/postgres.git
