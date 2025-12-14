@@ -5,3 +5,4 @@
 ![Docs](https://github.com/Kvanden1/lab-git-demo/workflows/CI/badge.svg?event=push)
 ## Tests
 - test_hello.py - basic tests
+ 
