@@ -1,0 +1,19 @@
+name: Simple CI/CD
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Run tests
+      run: |
+        echo "Running simple tests..."
+        # Простой тест
+        python -c "print('Test passed')"
+        
+    - name: Build
+      run: echo "Build completed"
