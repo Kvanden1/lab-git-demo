@@ -1,4 +1,4 @@
-name: Simple CI/CD
+name: CI
 
 on: [push, pull_request]
 
@@ -9,11 +9,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
     - name: Run tests
-      run: |
-        echo "Running simple tests..."
-        # Простой тест
-        python -c "print('Test passed')"
-        
-    - name: Build
-      run: echo "Build completed"
+      run: python test_hello.py
