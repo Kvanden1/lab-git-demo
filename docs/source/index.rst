@@ -7,8 +7,6 @@ Welcome to lab-git-demo's documentation!
    :maxdepth: 2
    :caption: Содержание:
 
-   (будущие разделы можно добавить сюда)
-
 Indices and tables
 ==================
 
