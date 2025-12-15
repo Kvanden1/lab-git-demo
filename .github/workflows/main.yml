@@ -1,41 +1,43 @@
-name: CI
+name: Build and Deploy Sphinx Documentation
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ release ]  # Триггер на пуши в ветку release
+  pull_request:
+    branches: [ release ]  # Триггер на PR в ветку release
 
 jobs:
-  docs:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup Python
-      uses: actions/setup-python@v4
+    # 1. Выкачиваем код из ветки release
+    - name: Checkout code
+      uses: actions/checkout@v4
       with:
-        python-version: '3.9'
-    
-    - run: pip install sphinx
-    
-    - name: Create Sphinx docs
+        ref: release  # Важно: указываем явно ветку release
+
+    # 2. Устанавливаем Python
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    # 3. Устанавливаем зависимости (Sphinx и тема)
+    - name: Install dependencies
       run: |
-        mkdir -p docs
-        sphinx-quickstart docs --quiet --project "lab-git-demo" --author "Kvanden1"
-        
-        # Простой conf.py
-        echo "project = 'My Project'" > docs/conf.py
-        echo "html_theme = 'alabaster'" >> docs/conf.py
-        
-        # Простой index.rst
-        echo "My Documentation" > docs/index.rst
-        echo "================" >> docs/index.rst
-        echo "" >> docs/index.rst
-        echo "Hello from Sphinx!" >> docs/index.rst
-        
-        cd docs
-        sphinx-build -b html . _build
-    
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
+        pip install sphinx sphinx-rtd-theme
+
+    # 4. Собираем HTML-документацию
+    - name: Build documentation
+      run: |
+        sphinx-build -b html docs/source docs/build  # Или ваши пути к source и build
+
+    # 5. Разворачиваем документацию на GitHub Pages
+    - name: Deploy to GitHub Pages
+      if: github.event_name == 'push' && github.ref == 'refs/heads/release'  # Деплоим только при прямом пуше в release
+      uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/_build/html
+        publish_dir: docs/build  # Папка с собранной документацией
+        publish_branch: gh-pages  # Ветка, куда будет заливаться сайт
