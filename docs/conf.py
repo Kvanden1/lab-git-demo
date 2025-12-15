@@ -9,6 +9,9 @@ sys.path.insert(0, os.path.abspath('..'))
 project = 'lab-git-demo'  # Название вашего проекта
 author = 'Kvanden1'       # Ваше имя
 copyright = f'{datetime.now().year}, {author}'  # Авторские права с текущим годом
+source_suffix = '.rst'
+master_doc = 'index'
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # -- Настройки версий -------------------------------------------------------------
 # Это разделение на version/release используется для подстановки |version| и |release| в тексте
