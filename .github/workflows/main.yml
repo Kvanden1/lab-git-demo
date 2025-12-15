@@ -9,13 +9,14 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    # 🔑 КРИТИЧЕСКИЙ МОМЕНТ: добавляем блок permissions
+    permissions:
+      contents: write  # Дает право записывать в ветку gh-pages
     steps:
-    # 1. Выкачиваем код из ветки release
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        ref: release  # Важно: указываем явно ветку release
+        ref: release
 
     # 2. Устанавливаем Python
     - name: Set up Python
