@@ -31,7 +31,7 @@ jobs:
     # 4. Собираем HTML-документацию
     - name: Build documentation
       run: |
-         sphinx-build -b html docs/ docs/build/
+         sphinx-build -b html docs/source/ docs/build/
 
     # 5. Разворачиваем документацию на GitHub Pages
     - name: Deploy to GitHub Pages
