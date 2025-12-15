@@ -1,6 +1,6 @@
 name: CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   docs:
@@ -19,7 +19,7 @@ jobs:
     - name: Create Sphinx docs
       run: |
         mkdir -p docs
-        sphinx-quickstart docs --quiet --project "MyProject" --author "Me"
+        sphinx-quickstart docs --quiet --project "lab-git-demo" --author "Kvanden1"
         
         # Простой conf.py
         echo "project = 'My Project'" > docs/conf.py
