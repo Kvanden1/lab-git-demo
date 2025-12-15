@@ -9,7 +9,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    # 🔑 КРИТИЧЕСКИЙ МОМЕНТ: добавляем блок permissions
     permissions:
       contents: write  # Дает право записывать в ветку gh-pages
     steps:
